@@ -350,6 +350,8 @@ def train(hyp,
             torch.save(check_point, last)
             if best_fitness == fi:
                 torch.save(check_point, best)
+            if (epoch > 0) and (args.save_period > 0) and (epoch % args.save_period == 0):
+                torch.save(check_point, weight_path / f'epoch{epoch}.pt')
             del check_point
             callbacks.run('on_model_save', last, epoch, final_epoch, best_fitness, fi)
 
